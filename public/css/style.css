@@ -1,0 +1,204 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+HK:700|Roboto&display=swap');
+
+.teal-text.text-lighten-2, #logo-container, #special {
+  color: #0d3f67 !important;
+}
+.header {
+  color: #0d3f67 !important;
+}
+/*.white {*/
+/*  background-color: #1ee3cf !important;*/
+/*}*/
+.container .sectionContact{
+  background-color: #1ee3cf !important;
+}
+#special {
+  background-color: #6b48ff !important;
+  color: #f2f4f6;
+}
+nav ul a,
+nav .brand-logo {
+  color: #1ee3cf;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+  color: #6b48ff;
+}
+p {
+  line-height: 2rem;
+}
+.blue {
+  background-color: #1ee3cf !important;
+}
+.sidenav-trigger {
+  color: #26a69a;
+}
+
+.parallax-container {
+  min-height: 380px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
+}
+  .parallax-container .section {
+    width: 100%;
+  }
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+  #index-banner .section {
+    top: 10%;
+  }
+}
+
+@media only screen and (max-width : 600px) {
+  #index-banner .section {
+    top: 0;
+  }
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
+
+footer.page-footer {
+  margin: 0;
+}
+
+.card .card-title.hidden {
+  text-indent: -9999px;
+}
+.card .card-image .card-badge {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  text-align: left;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  padding: 0.2em 24px 0.8em 24px;
+  color: #38383D;;
+  z-index: 2;
+}
+.card .card-image .card-badge .material-icons {
+  position: relative;
+  margin-right: 8px;
+  top: 7px;
+}
+.card .card-image .card-badge + .card-title {
+  padding-bottom: 66px;
+}
+.card.horizontal .card-image .card-badge {
+  text-align: center;
+  padding: 0.2em 0;
+}
+.card.horizontal .card-image .card-badge .material-icons {
+  display: none;
+}
+
+.card-action {
+  white-space: nowrap;
+}
+.card .card-content {
+    padding: 24px;
+    border-radius: 0 0 2px 2px;
+}
+body {
+  background: #f2f4f6;
+  font-family: 'Noto Sans HK', sans-serif;
+  /*text-align: center;*/
+}
+
+p{
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+}
+
+/*
+.card {
+  background: #fff;
+  border-radius: 2px;
+  display: inline-block;
+  height: 300px;
+  margin: 1rem;
+  position: relative;
+  width: 300px;
+}
+*/
+
+.card {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.card:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.32), 0 10px 10px rgba(0, 0, 0, 0.32);
+}
+
+/********** buttons 88888888888888*/
+btn, .btn-large, .btn-small, #download-button {
+  text-decoration: none;
+  color: #f2f4f6 !important;
+  background-color: #6b48ff !important;
+}
+
+#download-button {
+  text-decoration: none;
+  color: #0d3f67 !important;
+  background-color: #1ee3cf !important;
+}
+
+btn, .btn-large:hover, .btn-small:hover, #download-button:hover {
+  color: #0d3f67 !important;
+  background-color: #f2f4f6 !important;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  text-align: center;
+  letter-spacing: .5px;
+}
+
+.btn-floating.btn-large i {
+  line-height: 56px;
+  color: black;
+  background-color: #1ee3cf;
+}
+
+.btn-floating.btn-large:hover i {
+  line-height: 56px;
+  color: #0d3f67;
+  background-color: #f2f4f6;
+}
+
+.mt10 {
+  margin-top: 10px!important
+}
+
+
+
+.card-2 {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.card-3 {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.card-4 {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.card-5 {
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+*/
