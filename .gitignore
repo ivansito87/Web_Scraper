@@ -62,3 +62,6 @@ typings/
 
 # ignores idea folder
 .idea/
+
+# ignores mac files
+ .DS_Store/

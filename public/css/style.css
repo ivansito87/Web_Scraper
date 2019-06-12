@@ -13,6 +13,10 @@
 .header {
   color: #0d3f67 !important;
 }
+
+#deleteBtn {
+  background-color: #f44336 !important;
+}
 /*.white {*/
 /*  background-color: #1ee3cf !important;*/
 /*}*/
@@ -201,4 +205,20 @@ btn, .btn-large:hover, .btn-small:hover, #download-button:hover {
 .card-5 {
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
 }
-*/
+/*modal ----------------------*/
+.modal {
+  max-height: 90%;
+}
+
+.modal-form-row {
+  margin-bottom: 0px;
+}
+.modal .modal-footer {
+  border-radius: 0 0 2px 2px;
+  background-color: #f2f4f6;
+  padding: 4px 6px;
+  height: 72px;
+  width: 100%;
+  text-align: right;
+}
+/*modal ----------------------*/

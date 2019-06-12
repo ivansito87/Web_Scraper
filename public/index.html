@@ -21,7 +21,7 @@
         <li><a class="waves-effect waves-light btn-small" id="scrape"><i class="material-icons right">cloud_download</i>scrape more</a></li>
       </ul>
         <ul class="right hide-on-med-and-down">
-            <li><a class="waves-effect waves-light btn-small"><i class="material-icons right">cloud</i>saved Articles</a></li>
+            <li><a class="waves-effect waves-light btn-small" id="savedArticles"><i class="material-icons right">cloud</i>saved Articles</a></li>
         </ul>
 
       <ul id="nav-mobile" class="sidenav">
@@ -35,12 +35,12 @@
     <div class="section no-pad-bot">
       <div class="container">
         <br><br>
-        <h1 class="header center teal-text text-lighten-2">Tech News</h1>
+        <h1 class="header center teal-text text-lighten-2"><span id="pageHeading"></span></h1>
         <div class="row center">
-          <h5 class="header col s12 light" id="header">A new way to find good articles</h5>
+          <h5 class="header col s12 light" id="header"><span id="subHeading"></span></h5>
         </div>
         <div class="row center">
-          <a href="#." id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Load Articles</a>
+          <a href="#" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Load Articles</a>
         </div>
         <br><br>
 
@@ -94,6 +94,39 @@
             </div>-->
 
         </div>
+      <!-- modal -------------------------------------- -->
+      <div id="modal1" class="modal">
+        <div class="modal-content">
+          <h4>Notes</h4>
+
+          <div class="row">
+            <form class="col s12">
+              <!--<div class="row modal-form-row">
+                <div class="input-field col s12">
+                  <input id="image_url" type="text" class="validate">
+                  <label for="image_url">Image URL</label>
+                </div>
+              </div>-->
+              <div class="row">
+                <div class="input-field col s12 saved_notes">
+                 <!-- <label for="saved_notes">Your Previous Notes</label>-->
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <textarea id="article_note" type="text" class="materialize-textarea validate"></textarea>
+                  <label for="article_note">Note</label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a class="waves-effect waves-orange btn-large" href="#" id="saveNoteModal">Save</a>
+        </div>
+      </div>
+
+    <!------------------------------------------modal-->
       </div>
 
       <div class="row">
@@ -215,6 +248,8 @@
 
 
   <!--  Scripts-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
