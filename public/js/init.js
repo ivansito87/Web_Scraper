@@ -6,7 +6,10 @@
 
     }); // end of document ready
 })(jQuery); // end of jQuery name space
-// Grab the articles as a json
+// Grab the articles as a json\
+function myFunction() {
+    setTimeout(function(){ $("#savedArticles").trigger("click"); }, 500);
+}
 $.getJSON("/articles", function(data) {
     // For each one
     $("#download-button").trigger("click");
@@ -29,7 +32,7 @@ $("#download-button").on("click", function () {
     <div class="col s12 m6">
       <div class="card">
         <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1517061493161-6f312d1c36d0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80">
+          <img src="${data[i].image}">
           <span class="card-title">${data[i].title}</span>
           <a class="btn-floating btn-large halfway-fab waves-effect waves-light red"><i class="material-icons" data-chicken="${data[i]._id}" id="save">add</i></a>
         </div>
@@ -124,7 +127,7 @@ $("#savedArticles").on("click", function () {
     <div class="col s12 m6">
       <div class="card">
         <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1517061493161-6f312d1c36d0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2550&q=80">
+          <img src="${data[i].image}">
           <span class="card-title">${data[i].title}</span>
           <a class="btn-floating btn-large halfway-fab waves-effect waves-light red modal-trigger" href="#modal1"><i class="material-icons" data-chicken="${data[i]._id}" id="addNote">edit</i></a>
         </div>
@@ -201,7 +204,8 @@ $(document).on("click", "#saveNoteModal", () => {
             // Empty the notes section
             $("#article_note").val("");
             $("#modal1").modal().modal("close");
-            $("#savedArticles").trigger("click");
+            myFunction();
+
         });
     }
     // Also, remove the values entered in the input and textarea for note entry

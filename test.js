@@ -1,0 +1,1 @@
+const img = document.querySelectorAll("#tc-main-content > div:nth-child(2) > div > div > div > article:nth-child(1) > footer > figure > picture > img")

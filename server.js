@@ -26,7 +26,9 @@ var app = express();
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 // Use body-parser for handling form submissions
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
@@ -42,12 +44,12 @@ mongoose.connect(MONGODB_URI);
 var db = mongoose.connection;
 
 // Show any mongoose errors
-db.on("error", function(error) {
+db.on("error", function (error) {
     console.log("Mongoose Error: ", error);
 });
 
 // Once logged in to the db through mongoose, log a success message
-db.once("open", function() {
+db.once("open", function () {
     console.log("Mongoose connection successful.");
 });
 
@@ -67,21 +69,23 @@ app.get("/", function(req, res) {
 });
 */
 
-app.get("/saved", function(req, res) {
-    Article.find({"saved": true}).populate("notes").exec(function(error, articles) {
+app.get("/saved", function (req, res) {
+    Article.find({
+        "saved": true
+    }).populate("notes").exec(function (error, articles) {
 
         res.json(articles);
     });
 });
 
 // A GET request to scrape the TechCrunch website
-app.get("/scrape", function(req, res) {
+app.get("/scrape", function (req, res) {
     // First, we grab the body of the html with request
-    request("https://techcrunch.com/", function(error, response, html) {
+    request("https://techcrunch.com/", function (error, response, html) {
         // Then, we load that into cheerio and save it to $ for a shorthand selector
         var $ = cheerio.load(html);
         // Now, we grab every div.post-block, and do the following:
-        $("div.post-block").each(function(i, element) {
+        $("div.post-block").each(function (i, element) {
 
             // Save an empty result object
             var result = {};
@@ -90,14 +94,12 @@ app.get("/scrape", function(req, res) {
             result.title = $(this).find("a.post-block__title__link").text().trim();
             result.link = $(this).find("a.post-block__title__link").attr("href");
             result.summary = $(this).children(".post-block__content").text().trim();
-            // result.image = $(this).find("img.post-block__media").attr("src");
-
+            result.image = $(this).children(".post-block__footer").find("img").attr("src");
             // Using our Article model, create a new entry
             // This effectively passes the result object to the entry (and the title and link)
             var entry = new Article(result);
-
             // Now, save that entry to the db
-            entry.save(function(err, doc) {
+            entry.save(function (err, doc) {
                 // Log any errors
                 if (err) {
                     console.log(err);
@@ -116,9 +118,11 @@ app.get("/scrape", function(req, res) {
 });
 
 // This will get the articles we scraped from the mongoDB
-app.get("/articles", function(req, res) {
+app.get("/articles", function (req, res) {
     // Grab every doc in the Articles array
-    Article.find({"saved": false}, function(error, docs) {
+    Article.find({
+        "saved": false
+    }, function (error, docs) {
         // Log any errors
         if (error) {
             console.log(error);
@@ -131,13 +135,15 @@ app.get("/articles", function(req, res) {
 });
 
 // Grab an article by it's ObjectId
-app.get("/articles/:id", function(req, res) {
+app.get("/articles/:id", function (req, res) {
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-    Article.findOne({ "_id": req.params.id })
+    Article.findOne({
+        "_id": req.params.id
+    })
     // ..and populate all of the notes associated with it
         .populate("note")
         // now, execute our query
-        .exec(function(error, doc) {
+        .exec(function (error, doc) {
             // Log any errors
             if (error) {
                 console.log(error);
@@ -151,16 +157,19 @@ app.get("/articles/:id", function(req, res) {
 
 
 // Save an article
-app.post("/articles/save/:id", function(req, res) {
+app.post("/articles/save/:id", function (req, res) {
     // Use the article id to find and update its saved boolean
-    Article.findOneAndUpdate({ "_id": req.params.id }, { "saved": true})
+    Article.findOneAndUpdate({
+        "_id": req.params.id
+    }, {
+        "saved": true
+    })
     // Execute the above query
-        .exec(function(err, doc) {
+        .exec(function (err, doc) {
             // Log any errors
             if (err) {
                 console.log(err);
-            }
-            else {
+            } else {
                 // Or send the document to the browser
                 console.log(req.params.id);
                 res.send(doc);
@@ -169,16 +178,20 @@ app.post("/articles/save/:id", function(req, res) {
 });
 
 // Delete an article
-app.post("/articles/delete/:id", function(req, res) {
+app.post("/articles/delete/:id", function (req, res) {
     // Use the article id to find and update its saved boolean
-    Article.findOneAndUpdate({ "_id": req.params.id }, {"saved": false, "notes": []})
+    Article.findOneAndUpdate({
+        "_id": req.params.id
+    }, {
+        "saved": false,
+        "notes": []
+    })
     // Execute the above query
-        .exec(function(err, doc) {
+        .exec(function (err, doc) {
             // Log any errors
             if (err) {
                 console.log(err);
-            }
-            else {
+            } else {
                 // Or send the document to the browser
                 res.send(doc);
             }
@@ -187,15 +200,15 @@ app.post("/articles/delete/:id", function(req, res) {
 
 
 // Create a new note
-app.post("/notes/save/:id", function(req, res) {
+app.post("/notes/save/:id", function (req, res) {
     // Create a new note and pass the req.body to the entry
     var newNote = new Note({
         body: req.body.text,
         article: req.params.id
     });
-    console.log(req.body)
+    console.log(req.body);
     // And save the new note the db
-    newNote.save(function(error, note) {
+    newNote.save(function (error, note) {
         // Log any errors
         if (error) {
             console.log(error);
@@ -203,15 +216,20 @@ app.post("/notes/save/:id", function(req, res) {
         // Otherwise
         else {
             // Use the article id to find and update it's notes
-            Article.findOneAndUpdate({ "_id": req.params.id }, {$push: { "notes": note } })
+            Article.findOneAndUpdate({
+                "_id": req.params.id
+            }, {
+                $push: {
+                    "notes": note
+                }
+            })
             // Execute the above query
-                .exec(function(err) {
+                .exec(function (err) {
                     // Log any errors
                     if (err) {
                         console.log(err);
                         res.send(err);
-                    }
-                    else {
+                    } else {
                         // Or send the note to the browser
                         res.send(note);
                     }
@@ -220,57 +238,52 @@ app.post("/notes/save/:id", function(req, res) {
     });
 });
 
-/*app.get("/saved", function(req, res) {
-  Article.find({"saved": true}).populate("notes").exec(function(error, articles) {
-    var hbsObject = {
-      article: articles
-    };
-    res.render("saved", hbsObject);
-  });
-});*/
-
 //------------------------- get notes from db based on id
 
-app.get("/notes/:id",function(req, res){
-    Article.find({"_id": req.params.id}).populate("notes").exec(function(error, dbNotes) {
+app.get("/notes/:id", function (req, res) {
+    Article.find({
+        "_id": req.params.id
+    }).populate("notes").exec(function (error, dbNotes) {
         // Log any errors
         if (error) {
             console.log(error);
         }
-        // Or send the doc to the browser as a json object
-        else {
-            console.log("this is the notes that you asked for       -->>>>>>>>   ");
-            console.log(JSON.stringify(dbNotes, undefined, 2));
-            res.json(JSON.stringify(dbNotes, undefined, 2));
-        }
+        // Or send the doc to the browser as a json objectelse {
+        console.log("this is the notes that you asked for       -->>>>>>>>   ");
+        console.log(JSON.stringify(dbNotes, undefined, 2));
+        res.json(JSON.stringify(dbNotes, undefined, 2));
+
     });
 });
-
 
 //------------------------- get notes from db based on id
 
 
-
-
 // Delete a note
-app.delete("/notes/delete/:note_id/:article_id", function(req, res) {
+app.delete("/notes/delete/:note_id/:article_id", function (req, res) {
     // Use the note id to find and delete it
-    Note.findOneAndRemove({ "_id": req.params.note_id }, function(err) {
+    Note.findOneAndRemove({
+        "_id": req.params.note_id
+    }, function (err) {
         // Log any errors
         if (err) {
             console.log(err);
             res.send(err);
-        }
-        else {
-            Article.findOneAndUpdate({ "_id": req.params.article_id }, {$pull: {"notes": req.params.note_id}})
+        } else {
+            Article.findOneAndUpdate({
+                "_id": req.params.article_id
+            }, {
+                $pull: {
+                    "notes": req.params.note_id
+                }
+            })
             // Execute the above query
-                .exec(function(err) {
+                .exec(function (err) {
                     // Log any errors
                     if (err) {
                         console.log(err);
                         res.send(err);
-                    }
-                    else {
+                    } else {
                         // Or send the note to the browser
                         res.send("Note Deleted");
                     }
@@ -280,6 +293,6 @@ app.delete("/notes/delete/:note_id/:article_id", function(req, res) {
 });
 
 // Start the server
-app.listen(PORT, function() {
-    console.log("App running on port " + PORT + "!");
+app.listen(PORT, function () {
+    console.log("App running on http://localhost:" + PORT);
 });
